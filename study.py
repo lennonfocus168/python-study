@@ -1,20 +1,33 @@
-from types import MethodType
+from email import encoders
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+
+import smtplib
+
+def _format_addr(s):
+    name, addr = parseaddr(s)
+    return formataddr((Header(name, 'utf-8').encode(), addr))
 
 
-class Student(object):
-    pass
+# 输入Email地址和口令
+from_addr = '11468@qq.com'
+password = ''
+# 输入收件人地址:
+to_addr = '729097@qq.com'
+# 输入SMTP服务器地址:
+smtp_server = 'smtp.qq.com'
 
 
-def set_age(self, age):  # 定义一个函数作为实例方法
-    self.age = age
+msg = MIMEText('hello, send by Python...', 'plain', 'utf-8')
+msg['From'] = _format_addr('Python爱好者 <%s>' % from_addr)
+msg['To'] = _format_addr('管理员 <%s>' % to_addr)
+msg['Subject'] = Header('来自SMTP的问候……', 'utf-8').encode()
+
+server = smtplib.SMTP(smtp_server, 25)
+server.set_debuglevel(1)
+server.login(from_addr, password)
+server.sendmail(from_addr, [to_addr], msg.as_string())
+server.quit()
 
 
-s = Student()
-s.name = 'afwef'
-
-s1 = Student()
-s1.step = 3
-
-Student.set_age = MethodType(set_age, s)
-
-s1.set_age(10)

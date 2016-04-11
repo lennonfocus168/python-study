@@ -1,5 +1,3 @@
-import study
-import PIL
+test = {"1": "23", "few": "few"}
 
-print(study.__name__)
-print(study.test())
+print(r"fw\\'")
