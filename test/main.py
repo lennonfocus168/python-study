@@ -17,7 +17,6 @@ def hi(r, str="hello"):
     return r * r
 
 
-
 loop = asyncio.get_event_loop()
 tasks = [hello(), hi(99)]
 loop.run_until_complete(asyncio.wait(tasks))
