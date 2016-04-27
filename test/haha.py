@@ -1,40 +1,42 @@
 import asyncio
-import logging
-import aiomysql
-import pymysql
+import functools
 
 
-@asyncio.coroutine
-def create_pool(loop, **kw):
-    logging.info("create database connection pool...")
-    global __pool
-    __pool = yield from aiomysql.create_pool(host=kw.get('host', 'localhost'),
-                                             port=kw.get('port', 3306),
-                                             user=kw['zeghaun'],
-                                             password=kw['password'],
-                                             db=kw['test'],
-                                             charset=kw.get('charset', 'utf8'),
-                                             autocommit=kw.get('autocommit', True),
-                                             maxsize=kw.get('maxsize', 10),
-                                             minsize=kw.get('minsize', 1),
-                                             loop=loop
-                                             )
+def get(path):
+    '''
+    Define decorator @get('/path')
+    '''
+
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            return func(*args, **kw)
+
+        wrapper.__method__ = 'GET'
+        wrapper.__route__ = path
+        return wrapper
+
+    return decorator
 
 
-@asyncio.coroutine
-def test():
-    global __pool
-    with __pool.get() as conn:
-        cur = yield from conn.cursor()
+def post(path):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            return func(*args, **kw)
 
-        cur.execute('create table user1 (id varchar(20) primary key, name varchar(20))')
-        cur.execute('insert into user (id, name) values (%s, %s)', ['1', 'Michael'])
+        wrapper.__method__ = 'POST'
+        wrapper.__route__ = path
+        return wrapper
+
+    return decorator
 
 
-print(__name__)
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    tasks = [create_pool(loop)]
-    loop.run_until_complete(asyncio.wait(tasks))
-    loop.run_until_complete(asyncio.wait([test()]))
-    loop.close()
+def tttt():
+    print(locals())
+    print("-----------------------------")
+    print(globals())
+
+
+if __name__ == '__main__':
+    print(__name__)

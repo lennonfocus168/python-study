@@ -212,10 +212,3 @@ class Model(dict, metaclass=ModelMetaclass):
 
         rs = yield from select(' '.join(sql), args)
         return [cls(**r) for r in rs]
-
-
-class User(Model):
-    __table__ = 'users'
-
-    id = IntegerField(primary_key=True)
-    name = StringField()
