@@ -54,5 +54,7 @@ def test():
     yield from u.save()
 
 
-for x in test():
-    pass
+def next1(n):
+    if n == 1:
+        pass
+    return False

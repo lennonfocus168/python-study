@@ -1,4 +1,3 @@
-import asyncio
 import functools
 
 
@@ -37,6 +36,3 @@ def tttt():
     print("-----------------------------")
     print(globals())
 
-
-if __name__ == '__main__':
-    print(__name__)

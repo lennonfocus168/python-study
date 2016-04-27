@@ -1,8 +1,6 @@
 import asyncio
 import inspect
 
-from test.haha import tttt
-
 
 @asyncio.coroutine
 def hello(n):
@@ -29,15 +27,18 @@ def get_required_kw_args(fn):
     return tuple(args)
 
 
-def next(n):
-    if n == 1:
-        pass
-    return False
-
-
-module_name = 'test.haha.tt'
+module_name = 'test.haha.tttt'
 n = module_name.rfind('.')
-name = module_name[n + 1:]
-mod = getattr(__import__(module_name[:n], globals(), locals(), [name]), name)
 
-print(mod)
+if n == (-1):
+    mod = __import__(module_name, globals(), locals())
+else:
+    # name = module_name[n+1:]
+    # mod = getattr(__import__(module_name[:n], globals(), locals(), [name]), name)
+    # 上面两行是廖大大的源代码，但是把传入参数module_name的值改为'handlers.py'的话走这里是报错的，所以改成了下面这样
+    mod = __import__(module_name[:n], globals(), locals())
+
+
+# print(mod)
+# print(dir(mod))
+
