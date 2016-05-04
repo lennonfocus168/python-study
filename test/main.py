@@ -39,6 +39,3 @@ else:
     mod = __import__(module_name[:n], globals(), locals())
 
 
-# print(mod)
-# print(dir(mod))
-
