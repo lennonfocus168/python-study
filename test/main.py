@@ -16,6 +16,9 @@ def hello(n):
 # KEYWORD_ONLY			关键字参数且提供了key，相当于是 *,key
 # VAR_KEYWORD			相当于是 **kw
 
+
+
+
 def get_required_kw_args(fn):
     args = []
     print(inspect.signature(fn).parameters)
@@ -38,4 +41,7 @@ else:
     # 上面两行是廖大大的源代码，但是把传入参数module_name的值改为'handlers.py'的话走这里是报错的，所以改成了下面这样
     mod = __import__(module_name[:n], globals(), locals())
 
+
+# print(mod)
+# print(dir(mod))
 
