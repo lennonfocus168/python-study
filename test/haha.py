@@ -1,38 +1,5 @@
-import functools
+u = [{'email': '114671688@qq.com', 'id': '123456', 'name': 'tiancai', 'created_at': 0.0, 'admin': 0, 'image': 'hhhh',
+      'passwd': '123456'}]
 
-
-def get(path):
-    '''
-    Define decorator @get('/path')
-    '''
-
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kw):
-            return func(*args, **kw)
-
-        wrapper.__method__ = 'GET'
-        wrapper.__route__ = path
-        return wrapper
-
-    return decorator
-
-
-def post(path):
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kw):
-            return func(*args, **kw)
-
-        wrapper.__method__ = 'POST'
-        wrapper.__route__ = path
-        return wrapper
-
-    return decorator
-
-
-def tttt():
-    print(locals())
-    print("-----------------------------")
-    print(globals())
-
+print(u[0])
+t = {'__template__': 'test.html', 'users': u}

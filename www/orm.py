@@ -17,9 +17,9 @@ def create_pool(loop, **kw):
     __pool = yield from aiomysql.create_pool(
         host=kw.get('host', '127.0.0.1'),  # host固定为127.0.0.1
         port=kw.get('port', 3306),  # port固定位3306
-        user=kw['user'],  # user取传入的参数key为user的值
-        password=kw['password'],  # password取传入的参数key为password的值
-        db=kw['db'],  # db取传入的参数key为db的值
+        user=kw.get('user', 'user'),  # user取传入的参数key为user的值
+        password=kw.get('password', 'password'),  # password取传入的参数key为password的值
+        db=kw.get('db', 'awesome'),  # db取传入的参数key为db的值
         charset=kw.get('charset', 'utf8'),  # 编码为utf8
         autocommit=kw.get('autocommit', True),  # 自动提交事务设为开启
         maxsize=kw.get('maxsize', 10),  # 连接池最多10条连接，默认是10
