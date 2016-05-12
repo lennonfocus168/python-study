@@ -5,6 +5,8 @@
 
 from __future__ import generators
 
+from setuptools.compat import basestring
+
 r"""A fast and complete Python implementation of Markdown.
 
 [from http://daringfireball.net/projects/markdown/]
@@ -89,9 +91,7 @@ __version_info__ = (2, 3, 0)
 __version__ = '.'.join(map(str, __version_info__))
 __author__ = "Trent Mick"
 
-import os
 import sys
-from pprint import pprint, pformat
 import re
 import logging
 
@@ -111,8 +111,6 @@ except ImportError:
     from urllib import quote  # python2
 
 if sys.version_info[:2] < (2, 4):
-    from sets import Set as set
-
 
     def reversed(sequence):
         for i in sequence[::-1]:
