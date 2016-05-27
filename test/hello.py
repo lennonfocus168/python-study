@@ -24,10 +24,12 @@ headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection',
            ('Referer', 'http//acm.fzu.edu.cn/login.php?dir=L2luZGV4LnBocA=='),
            ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'),
            ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', ' 1'),
-           ('Pragma', 'no-cache')]
+           ('Cookie', 'FASAST=7vbtpgjviv872vsg60me6n8086')]
 
+headers = [('Cookie', 'FASAST=7vbtpgjviv872vsg60me6n8086')]
 
-# ('Accept-Encoding', 'gzip,deflate')
+print(headers)
+
 
 class xiaobai:
     post_data = b""  # 登陆提交的参数
@@ -53,23 +55,26 @@ class xiaobai:
         _response2 = urllib.request.urlopen(req2)
         _d2 = _response2.read()
         _d22 = _d2.decode(bianma)
-        return _d2
+        return _d22
 
 
 if __name__ == "__main__":
     x = xiaobai()
     # 参递一个post参数
     x.post_data = urllib.parse.urlencode(
-        {'uname': 'zeghaun', 'password': 'huan31415', "submit": "Submit"}).encode(
-        encoding='UTF8')
+        {'uname': 'zeghaun', 'password': 'abc123', "submit": "Submit"}).encode(
+        encoding='UTF-8')
     # print('x.post_data:',urllib.parse.parse_qs(x.post_data))
-    acm_url = "http://acm.fzu.edu.cn/login.php?act=3&dir=L2F3YXJkLnBocA=="
-    y = x.login(acm_url, "utf-8")  # 登陆
-    # 获取一个页面的html并输出
-    # print (x.getpagehtml("http://www.lvye.org/userinfo.php?uid=404071","utf-8"))
-    print(y)
-    f = open(r'E:/1.html', 'wb')
+    post_url = "http://acm.fzu.edu.cn/login.php?act=1&dir=Lw=="
+    get_url = "http://acm.fzu.edu.cn/"
+    login_out_url="http://acm.fzu.edu.cn/login.php?act=2&dir=Lw=="
 
-    f.write(bytes(y.encode('utf-8')))
+    y = x.login(post_url, "utf-8")  # 登陆
 
-    f.close()
+    print("post Member ", y.find("Member") > 0)
+    print("post zeghaun", y.find('zeghaun') > 0)
+
+    # y = x.getpagehtml(get_url, "utf-8")
+
+    print("get Member ", y.find("Member") > 0)
+    print("get zeghaun", y.find('zeghaun') > 0)
