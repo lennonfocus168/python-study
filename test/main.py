@@ -1,4 +1,3 @@
-
 headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection', 'keep-alive'), ('DNT', '1'),
            ('Cache-Control', 'no-cache'), ('User-Agent',
                                            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'),
@@ -8,3 +7,13 @@ headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection',
            ('Accept-Encoding', 'gzip, deflate'),
            ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', ' 1'),
            ('Cookie', 'FASAST=7vbtpgjviv872vsg60me6n8086')]
+
+import re
+
+text = "iioodffeeeeris"
+m = re.search(r'(..)*', text)
+if m:
+    print(m.group(1))
+    print(m.group())
+else:
+    print('not search')
