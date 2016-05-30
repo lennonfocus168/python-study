@@ -23,3 +23,4 @@ f = open(r'E:/1.html', 'wb')
 f.write(data)
 
 f.close()
+

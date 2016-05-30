@@ -66,10 +66,10 @@ if __name__ == "__main__":
 
     x.get_head_cookies(home_url)
 
-    # y = x.login(post_url, "utf-8")  # 登陆
-    # print("post Member ", y.find("Member") > 0)
-    # print("post zeghaun", y.find('zeghaun') > 0)
-    #
-    # y = x.get_html(get_url, "utf-8")
-    # print("get Member ", y.find("Member") > 0)
-    # print("get zeghaun", y.find('zeghaun') > 0)
+    y = x.login(post_url, "utf-8")  # 登陆
+    print("post Member ", y.find("Member") > 0)
+    print("post zeghaun", y.find('zeghaun') > 0)
+
+    y = x.get_html(get_url, "utf-8")
+    print("get Member ", y.find("Member") > 0)
+    print("get zeghaun", y.find('zeghaun') > 0)
