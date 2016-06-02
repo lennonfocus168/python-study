@@ -1,29 +1,33 @@
-import urllib
+from optparse import OptionParser
 
-from aiohttp.hdrs import CONTENT_LENGTH
+headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection', 'keep-alive'), ('DNT', '1'),
+           ('Cache-Control', 'no-cache'), ('User-Agent',
+                                           'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'),
+           ('Accept-Language', 'zh-CN,zh;q=0.8,en;q=0.6'),
+           ('Referer', 'http//acm.fzu.edu.cn/login.php?dir=L2luZGV4LnBocA=='),
+           ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'),
+           ('Accept-Encoding', 'gzip, deflate'),
+           ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', ' 1'),
+           ('Cookie', 'FASAST=7vbtpgjviv872vsg60me6n8086')]
 
-acm_url = "http://acm.fzu.edu.cn/login.php?act=1&dir=L2F3YXJkLnBocA=="
-data = {"uname": "zeghaun",
-        "password": "abc123",
-        "submit": "Submit"}
+import re
 
-post_data = urllib.parse.urlencode(data)
-headers = {
-    "Host": "acm.fzu.edu.cn",
-    "Connection": "keep-alive",
-    "Content-Length": CONTENT_LENGTH,
-    "Pragma": "no-cache",
-    "Cache-Control": "no-cache",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Origin": "http//acm.fzu.edu.cn",
-    "Upgrade-Insecure-Requests": " 1",
-    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "DNT": "1",
-    "Referer": "http//acm.fzu.edu.cn/login.php?dir=L2luZGV4LnBocA==",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.8,en;q=0.6",
-    "Cookie": " _gscu_1331749010=63020751tpm7ze17; _gscbrs_1331749010=1; FASAST=7v5ckg6291kb3mau85bn3cg3v5; __utmt=1; __utma=174014643.300573640.1464166421.1464166421.1464166421.1; __utmb=174014643.31.10.1464166421; __utmc=174014643; __utmz=174014643.1464166421.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
-}
+text = "iioodffeeeeris"
+m = re.search(r'(..)*', text)
 
-t = urllib.request.request(acm_url, post_data, headers=headers)
+from optparse import OptionParser
+
+
+def main():
+    p = OptionParser()
+    p.add_option('-n', '--name', dest='person_name', help='person\'s name', default='person1')
+    p.add_option('-a', '--age', default=30, help='person\'s age')
+    p.add_option('-j', '--job', default='software engineer', help='person\'s job')
+    options, args = p.parse_args()
+    print('Hello %s' % options.person_name, ', age is %d' % int(options.age), ',job is %s' % options.job)
+    print(args)
+    print(p.print_help())
+
+
+if __name__ == '__main__':
+    main()
