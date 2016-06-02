@@ -4,6 +4,7 @@ import re
 import urllib.parse
 import urllib.request
 
+print("dev")
 
 print("master ")
 def ungzip(data):
