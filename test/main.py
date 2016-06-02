@@ -1,3 +1,5 @@
+from optparse import OptionParser
+
 headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection', 'keep-alive'), ('DNT', '1'),
            ('Cache-Control', 'no-cache'), ('User-Agent',
                                            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'),
@@ -12,8 +14,20 @@ import re
 
 text = "iioodffeeeeris"
 m = re.search(r'(..)*', text)
-if m:
-    print(m.group(1))
-    print(m.group())
-else:
-    print('not search')
+
+from optparse import OptionParser
+
+
+def main():
+    p = OptionParser()
+    p.add_option('-n', '--name', dest='person_name', help='person\'s name', default='person1')
+    p.add_option('-a', '--age', default=30, help='person\'s age')
+    p.add_option('-j', '--job', default='software engineer', help='person\'s job')
+    options, args = p.parse_args()
+    print('Hello %s' % options.person_name, ', age is %d' % int(options.age), ',job is %s' % options.job)
+    print(args)
+    print(p.print_help())
+
+
+if __name__ == '__main__':
+    main()
