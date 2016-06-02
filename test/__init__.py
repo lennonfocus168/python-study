@@ -1,10 +1,11 @@
 import gzip
-import re
 import http.cookiejar
-import urllib.request
+import re
 import urllib.parse
+import urllib.request
 
 
+print("master ")
 def ungzip(data):
     try:  # 尝试解压
         print('正在解压.....')
