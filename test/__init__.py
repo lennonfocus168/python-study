@@ -4,6 +4,7 @@ import http.cookiejar
 import urllib.request
 import urllib.parse
 
+print("dev")
 
 def ungzip(data):
     try:  # 尝试解压

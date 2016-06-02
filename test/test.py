@@ -1,4 +1,3 @@
-
 import gzip
 import http.cookiejar
 import urllib.parse
@@ -69,4 +68,3 @@ print(opener.addheaders)
 # html = zip_to_encode_html(connection)
 # print("post Member ", html.find("Member") > 0)
 # print("post zeghaun", html.find('zeghaun') > 0)
-
