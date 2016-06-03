@@ -1,16 +1,11 @@
 import gzip
-import re
 import http.cookiejar
-import urllib.request
+import re
 import urllib.parse
-
-print("dev add")
-
-print("jfaofjoew")
+import urllib.request
 
 
-print("jfaofjoew")
-
+print("master ")
 def ungzip(data):
     try:  # 尝试解压
         print('正在解压.....')
