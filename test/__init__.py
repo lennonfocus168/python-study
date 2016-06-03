@@ -5,10 +5,9 @@ import urllib.parse
 import urllib.request
 
 
-print("dev add")
+print("dev ")
 
 
-print("master ")
 def ungzip(data):
     try:  # 尝试解压
         print('正在解压.....')
