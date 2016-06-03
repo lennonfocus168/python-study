@@ -6,8 +6,6 @@ import urllib.parse
 
 print("dev add")
 
-print("jfaofjoew")
-
 
 def ungzip(data):
     try:  # 尝试解压
