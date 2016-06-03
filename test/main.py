@@ -10,6 +10,9 @@ headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection',
            ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', ' 1'),
            ('Cookie', 'FASAST=7vbtpgjviv872vsg60me6n8086')]
 
+('Cookie',
+            'FASAST=vr6pb7hmj0asehlitrk2dpsm26;; __utmt=1; __utma=174014643.1328877597.1464769617.1464769617.1464769617.1;' +
+            ' __utmb=174014643.3.10.1464769617; __utmc=174014643; __utmz=174014643.1464769617.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
 import re
 
 text = "iioodffeeeeris"
