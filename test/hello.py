@@ -4,7 +4,6 @@ import http.cookiejar
 import urllib
 import urllib.request
 import urllib.request
-from io import StringIO
 
 from setuptools.compat import BytesIO
 
