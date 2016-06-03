@@ -5,7 +5,7 @@ import urllib.parse
 import urllib.request
 
 
-print("dev ")
+print("dev dev")
 
 
 def ungzip(data):
