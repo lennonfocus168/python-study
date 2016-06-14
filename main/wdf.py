@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+# 查看微信是否被好友删除
 from __future__ import print_function
 
 import os
@@ -42,7 +43,6 @@ BaseRequest = {}
 ContactList = []
 My = []
 SyncKey = []
-
 
 
 def responseState(func, BaseResponse):
