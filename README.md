@@ -6,4 +6,4 @@ A python webapp tutorial.
 
 ###main 为主文件夹，可以执行的程序都在里面.
 > www 博客代码，跑不起来
-###wdf.py 寻找微信被好友删除自己的好友
+> > wdf.py 寻找微信被好友删除自己的好友
