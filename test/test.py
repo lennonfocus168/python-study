@@ -1,9 +1,6 @@
+import time
 
-dev
 
-
-hahh
-
-1
-
-aaa
+for i in range(100):
+    print('-' * i)
+    time.sleep(1)
