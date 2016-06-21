@@ -4,3 +4,6 @@
 
 def tt():
     print('tt')
+
+def pp():
+    print('tpppp')
