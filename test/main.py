@@ -6,7 +6,6 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
-import sys
 
 
 def _format_addr(s):
@@ -16,9 +15,9 @@ def _format_addr(s):
 
 from_addr = ''  # 发件人地址
 to_addr = ''  # 收件人地址
-smtp_server = 'smtp.qq.com'  # 邮件服务器
+smtp_server = 'smtp.163.com'  # 邮件服务器
 password = ''  # 密码
-smtp = smtplib.SMTP()
+
 
 # 附件需要使用MIMEMultipart
 msg = MIMEMultipart()
@@ -29,7 +28,8 @@ msg['Subject'] = Header('好好学习，sendToKindle', 'utf-8').encode()
 msg.attach(MIMEText('send with file...', 'plain', 'utf-8'))
 
 try:
-    path = sys.argv[1]  # 获取路径参数
+    path=r"F:\\1.txt"
+    # path = sys.argv[1]  # 获取路径参数
     if path is None or not isinstance(path, str) or not os.path.exists(path):
         print("路径或者文件有误,最好路径与文件名没有空格、特殊字符等")
         exit(1)
@@ -52,7 +52,9 @@ with open(path, 'rb') as fp:
     msg.attach(mime)
 
 try:
-    server = smtplib.SMTP(smtp_server, 25)  # SMTP协议默认端口是25
+    # server = smtplib.SMTP(smtp_server, 25)  # SMTP协议默认端口是25
+    server = smtplib.SMTP(smtp_server, 464)  # 网易SMTP协议加密传输端口是465
+    server.starttls()
     server.login(from_addr, password)
     server.sendmail(from_addr, [to_addr], msg.as_string())
 except Exception as e:

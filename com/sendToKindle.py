@@ -18,7 +18,6 @@ from_addr = ''  # 发件人地址
 to_addr = ''  # 收件人地址
 smtp_server = 'smtp.qq.com'  # 邮件服务器
 password = ''  # 密码
-smtp = smtplib.SMTP()
 
 # 附件需要使用MIMEMultipart
 msg = MIMEMultipart()
@@ -53,6 +52,7 @@ with open(path, 'rb') as fp:
 
 try:
     server = smtplib.SMTP(smtp_server, 25)  # SMTP协议默认端口是25
+    # server.starttls()  #建立安全连接，上面的端口也要改，未成功
     server.login(from_addr, password)
     server.sendmail(from_addr, [to_addr], msg.as_string())
 except Exception as e:
