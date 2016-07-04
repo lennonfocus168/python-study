@@ -13,10 +13,10 @@ def _format_addr(s):
     name, addr = parseaddr(s)
     return formataddr((Header(name, 'utf-8').encode(), addr))
 
-
+#qq邮箱好像不行 要用163
 from_addr = ''  # 发件人地址
 to_addr = ''  # 收件人地址
-smtp_server = 'smtp.qq.com'  # 邮件服务器
+smtp_server = 'smtp.163.com'  # 邮件服务器
 password = ''  # 密码
 
 # 附件需要使用MIMEMultipart
@@ -59,3 +59,4 @@ except Exception as e:
     print("无法建立连接，可能是网络等异常", e)
 finally:
     server.quit()
+
