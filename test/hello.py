@@ -4,9 +4,6 @@ import http.cookiejar
 import urllib
 import urllib.request
 import urllib.request
-
-print("fefawef")
-
 from setuptools.compat import BytesIO
 
 headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection', 'keep-alive'), ('DNT', '1'),
@@ -18,47 +15,33 @@ headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection',
            ('Accept-Encoding', 'gzip, deflate'),
            ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', '1')]
 
-print(headers)
-data = {'uname': 'zeghaun', 'password': 'abc123', "submit": "Submit"}
+
+def get_html(pageurl, encoding='utf-8'):
+    # 获取目标网站任意一个页面的html代码
+    request = urllib.request.Request(pageurl)
+    response = urllib.request.urlopen(request)
+    if response.info().get('Content-Encoding') == 'gzip':
+        gzip_f = gzip.GzipFile(fileobj=BytesIO(response.read()))
+        content = gzip_f.read()
+    else:
+        content = response.read()
+    return content.decode(encoding)
 
 
-class Spider(object):
-    def __init__(self, head, post_data):
-        # 初始化类，并建立cookies值
-        cj = http.cookiejar.CookieJar()
-        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
-        opener.addheaders = head
-        urllib.request.install_opener(opener)
-        self.post_data = urllib.parse.urlencode(post_data).encode('UTF-8')
+spider_url = r'https://www.zhihu.com/question/22761172'
+spider_url = r'http://bbs.fengniao.com/forum/8978324.html'
+cj = http.cookiejar.CookieJar()
+opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+opener.addheaders = headers
+html = urllib.request.install_opener(opener)
 
-    def login(self, loginurl, encoding='utf-8'):
-        # 模拟登陆
-        request = urllib.request.Request(loginurl, self.post_data)
-        content = self.zip_to_encode_html(request, encoding)
-        return content
+content = get_html(spider_url)
+with open(r"E:\1.html", "w", encoding='utf-8') as fw:
+    try:
+        fw.write(content)
+    except Exception as e:
+        print(e)
+    finally:
+        fw.close()
 
-    def get_html(self, pageurl, encoding='utf-8'):
-        # 获取目标网站任意一个页面的html代码
-        request = urllib.request.Request(pageurl)
-        content = self.zip_to_encode_html(request, encoding)
-        return content
-
-    def get_head_cookies(self, pageurl, encoding='utf-8'):
-        request = urllib.request.Request(pageurl)
-        response = urllib.request.urlopen(request)
-        print(response.info())
-
-    def zip_to_encode_html(self, request, encoding='utf-8'):
-        response = urllib.request.urlopen(request)
-
-        if response.info().get('Content-Encoding') == 'gzip':
-            gzip_f = gzip.GzipFile(fileobj=BytesIO(response.read()))
-            content = gzip_f.read()
-        else:
-            content = response.read()
-        return content.decode(encoding)
-
-
-if __name__ == "__main__":
-    x = Spider(headers, data)
-
+print(content)
