@@ -1,19 +1,27 @@
 # coding=utf-8
 import gzip
 import http.cookiejar
+import os
 import urllib
 import urllib.request
 import urllib.request
+
+import re
+
+from os.path import basename
+from urllib.parse import urlsplit
+
 from setuptools.compat import BytesIO
 
-headers = [('Content-Type', 'application/x-www-form-urlencoded'), ('Connection', 'keep-alive'), ('DNT', '1'),
-           ('Cache-Control', 'no-cache'), ('User-Agent',
-                                           'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'),
+spider_url = r'https://www.zhihu.com/question/32674678'
+spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
+file_path = r"E:\image\\"
+
+headers = [('User-Agent',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'),
            ('Accept-Language', 'zh-CN,zh;q=0.8,en;q=0.6'),
-           ('Referer', 'http//acm.fzu.edu.cn/login.php?dir=L2luZGV4LnBocA=='),
-           ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'),
-           ('Accept-Encoding', 'gzip, deflate'),
-           ('Host', 'acm.fzu.edu.cn'), ('Origin', 'http//acm.fzu.edu.cn'), ('Upgrade-Insecure-Requests', '1')]
+           ('Referer', spider_url),
+           ('Host', 'www.zhihu.com')]
 
 
 def get_html(pageurl, encoding='utf-8'):
@@ -22,18 +30,11 @@ def get_html(pageurl, encoding='utf-8'):
     response = urllib.request.urlopen(request)
     if response.info().get('Content-Encoding') == 'gzip':
         gzip_f = gzip.GzipFile(fileobj=BytesIO(response.read()))
-        content = gzip_f.read()
+        result = gzip_f.read()
     else:
-        content = response.read()
-    return content.decode(encoding)
+        result = response.read()
+    return result.decode(encoding)
 
-
-spider_url = r'https://www.zhihu.com/question/22761172'
-spider_url = r'http://bbs.fengniao.com/forum/8978324.html'
-cj = http.cookiejar.CookieJar()
-opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
-opener.addheaders = headers
-html = urllib.request.install_opener(opener)
 
 content = get_html(spider_url)
 with open(r"E:\1.html", "w", encoding='utf-8') as fw:
@@ -44,4 +45,19 @@ with open(r"E:\1.html", "w", encoding='utf-8') as fw:
     finally:
         fw.close()
 
-print(content)
+re_str = 'img .*?src="(http://.*?.jpg)"'
+searchObj = re.findall(re_str, content, re.M | re.I)
+
+if not os.path.exists(file_path):
+    os.makedirs(file_path)
+
+for img_url in searchObj:
+    try:
+        img_data = urllib.request.urlopen(img_url).read()
+        file_name = basename(urlsplit(img_url)[2])
+        output = open(file_path + file_name, 'wb')
+        print(file_path + file_name)
+        output.write(img_data)
+        output.close()
+    except Exception as e:
+        print(e)

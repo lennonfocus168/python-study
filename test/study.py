@@ -1,3 +1,8 @@
-from_addr = '1146971668@qq.com'  # 发件人地址
+import re
 
-print('%s <%s>' % (from_addr, from_addr))
+content = '<img src="https://p98ec73a_b.jpg"> <img src="http://p98ec73a_b.jpg"'
+
+re_str = 'img .*?src="(http[s]?://.*?)"'
+searchObj = re.findall(re_str, content, re.M | re.I)
+
+print(searchObj)
