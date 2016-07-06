@@ -15,7 +15,7 @@ request = urllib.request.Request(spider_url)
 response = urllib.request.urlopen(request)
 content = response.read().decode('utf-8')
 
-re_str = 'img .*?src="(http[s]?://.*?)"'
+re_str = 'src="(http[s]?://.*?jpg)"'
 searchObj = re.findall(re_str, content, re.M | re.I)
 
 if not os.path.exists(file_path):
