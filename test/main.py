@@ -9,26 +9,26 @@ from urllib.parse import urlsplit
 
 # spider_url = r'https://www.zhihu.com/question/37006507'
 spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
-file_path = r"E:\image\\"
-
-request = urllib.request.Request(spider_url)
-response = urllib.request.urlopen(request)
-content = response.read().decode('utf-8')
+collection_url = r'https://www.zhihu.com/collection/62864589'
+# collection_url = r'https://www.zhihu.com/collection/101134785'  # 自己
+URL_PRE = "https://www.zhihu.com"
 
 re_str = 'src="(http[s]?://.*?jpg)"'
-searchObj = re.findall(re_str, content, re.M | re.I)
+col_re_str = '<a target="_blank" href="(.*?)">(.*?)</a>'
 
-if not os.path.exists(file_path):
-    os.makedirs(file_path)
+col_list = []
+page = 1
+while True:
+    col_url = collection_url + "?page=" + str(page)
+    page += 1
+    request = urllib.request.Request(col_url)
+    response = urllib.request.urlopen(request)
+    content = response.read().decode('utf-8')
+    searchObj = re.findall(col_re_str, content, re.M | re.I)
+    if searchObj is None or len(searchObj) <= 0:
+        break
 
-print(searchObj)
-for img_url in searchObj:
-    try:
-        img_data = urllib.request.urlopen(img_url).read()
-        file_name = basename(urlsplit(img_url)[2])
-        output = open(file_path + file_name, 'wb')
-        print(file_path + file_name)
-        output.write(img_data)
-        output.close()
-    except Exception as e:
-        print(e)
+    col_list = col_list + searchObj
+
+print(col_list)
+print(len(col_list))
