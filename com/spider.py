@@ -27,12 +27,13 @@ def download_photos(page_url, name):
     request = urllib.request.Request(page_url)
     response = urllib.request.urlopen(request)
     content = response.read().decode('utf-8')
-    img_url_list = re.findall(re_str, content, re.M | re.I)
+    # 很多图片会重复，用set变成去重
+    img_url_list = set(re.findall(re_str, content, re.M | re.I))
 
     if not os.path.exists(file_path):
         os.makedirs(file_path)
 
-    print(file_path)
+    def_log(img_url_list)
     for img_url in img_url_list:
         try:
             img_data = urllib.request.urlopen(img_url).read()
@@ -69,10 +70,10 @@ def get_page(col_url):
 def log(file_path, text):
     log_path = file_path + "\log.txt"
     try:
-        output = open(log_path, 'a')
+        output = open(log_path, 'a', encoding='utf-8')
         output.write("\n\n")
         output.write(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()) + "\n")
-        output.write(text)
+        output.write(str(text))
         print(text)
     except Exception as e:
         print("LOG Exception:", e)
