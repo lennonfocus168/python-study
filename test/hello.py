@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 from setuptools.compat import BytesIO
 
 spider_url = r'https://www.zhihu.com/question/32674678'
-spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
+# spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
 file_path = r"E:\image\\"
 
 headers = [('User-Agent',
@@ -44,6 +44,7 @@ with open(r"E:\1.html", "w", encoding='utf-8') as fw:
         print(e)
     finally:
         fw.close()
+
 
 re_str = 'img .*?src="(http://.*?.jpg)"'
 searchObj = re.findall(re_str, content, re.M | re.I)
