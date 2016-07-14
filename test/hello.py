@@ -37,7 +37,7 @@ def get_html(pageurl, encoding='utf-8'):
 
 
 content = get_html(spider_url)
-with open(r"E:\1.html", "w", encoding='utf-8') as fw:
+with open(r"E:\1.html", "r", encoding='utf-8') as fw:
     try:
         fw.write(content)
     except Exception as e:

@@ -24,6 +24,7 @@ def log(file_path, text):
         output.close()
 
 
-log("E:\\", "awfeawfe")
-
-print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
+s = set()
+s.add("fawefw")
+s.add("ewfwe")
+print(s)
