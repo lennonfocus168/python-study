@@ -23,27 +23,22 @@ URL_PRE = "https://www.zhihu.com"
 def download_photos(page_url, name):
     re_str = 'src="(http[s]?://.*?)"'
     file_path = PATH + name
-    request = urllib.request.Request(page_url)
-    response = urllib.request.urlopen(request)
-    content = response.read().decode('utf-8')
+    try:
+        request = urllib.request.Request(page_url)
+        response = urllib.request.urlopen(request)
+        content = response.read().decode('utf-8')
+    except Exception as e:
+        print("Exception:request ", e)
+        return
+
     # 很多图片会重复，用set变成去重
     url_list = set(re.findall(re_str, content, re.M | re.I))
     img_url_list = set()
-    for url in url_list:
-        if str(url).endswith('_b.jpg'):
-            img_url_list.add(url)
+    for i in url_list:
+        if str(i).endswith('_b.jpg'):
+            img_url_list.add(i)
 
-    try:
-        if not os.path.exists(file_path):
-            os.makedirs(file_path)
-    except Exception as e:
-        print("download_photos makedirs:", e)
-        file_path = PATH + basename(page_url)
-        if not os.path.exists(file_path):
-            os.makedirs(file_path)
-    finally:
-        pass
-
+    file_path = create_dirs(file_path, page_url)
     def_log(page_url + "    site:" + str(len(img_url_list)))
 
     for img_url in img_url_list:
@@ -53,11 +48,11 @@ def download_photos(page_url, name):
             img_path = file_path + "\\" + base_name
             output = open(img_path, 'wb')
             output.write(img_data)
-            log(file_path, img_path)
         except Exception as e:
             print("download_photos:", e)
         finally:
             output.close()
+            log(file_path, img_path)
 
 
 def get_page(col_url):
@@ -97,19 +92,45 @@ def def_log(text):
     log(PATH, text)
 
 
+def create_dirs(file_path, l_url):
+    try:
+        if not os.path.exists(file_path):
+            os.makedirs(file_path)
+    except Exception as e:
+        def_log("Exception: create_dirs--" + str(e))
+        file_path = PATH + basename(l_url)
+        if not os.path.exists(file_path):
+            os.makedirs(file_path)
+    finally:
+        return file_path
+
+
+def create_dir():
+    create_dirs(PATH, "1000")
+
+
 if __name__ == "__main__":
+    # 输入想要爬虫的url
     request_url = ""
-    request_url = str(input("请输入集合：")).strip()
+    request_url = str(input("请输入集合或者某个问题：")).strip()
     print(request_url)
+
+    # 新建目录 E:\image
+    create_dir()
     if request_url is None or len(request_url) < len('https://www.zhihu.com/collection/'):
-        print("集合有误，使用默认集合:" + collection_url)
+        print("url有误，使用默认集合:" + collection_url)
         request_url = collection_url
 
-    col_list = get_page(request_url)
+    if request_url.find('collection') > 0:
+        # 集合爬虫
+        col_list = get_page(request_url)
 
-    for url, name in col_list:
-        page_url = URL_PRE + url
-        download_photos(page_url, name)
+        for url, name in col_list:
+            page_url = URL_PRE + url
+            download_photos(page_url, name)
+    else:
+        # 单个问题爬虫
+        download_photos(request_url, basename(request_url))
 
     def_log("爬虫完成请请前往" + PATH + "查看")
     time.sleep(100)
