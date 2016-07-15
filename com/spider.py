@@ -13,7 +13,6 @@ import time
 spider_url = r'https://www.zhihu.com/question/37709992'
 # spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
 collection_url = r'https://www.zhihu.com/collection/90762956'
-# collection_url = r'https://www.zhihu.com/collection/101134785'  # 自己
 
 PATH = "E:\\image\\"
 URL_PRE = "https://www.zhihu.com"
@@ -33,11 +32,13 @@ def download_photos(page_url, name):
 
     # 很多图片会重复，用set变成去重
     url_list = set(re.findall(re_str, content, re.M | re.I))
+    # 以_b.jpg结尾的才是干货
     img_url_list = set()
     for i in url_list:
         if str(i).endswith('_b.jpg'):
             img_url_list.add(i)
 
+    # file_path有可能会变,name是特别的字符时候，无法穿件目录，用数字来
     file_path = create_dirs(file_path, page_url)
     def_log(page_url + "    site:" + str(len(img_url_list)))
 
@@ -114,7 +115,7 @@ if __name__ == "__main__":
     request_url = ""
     request_url = str(input("请输入集合或者某个问题：")).strip()
     print(request_url)
-
+    request_url=spider_url
     # 新建目录 E:\image
     create_dir()
     if request_url is None or len(request_url) < len('https://www.zhihu.com/collection/'):
@@ -132,5 +133,5 @@ if __name__ == "__main__":
         # 单个问题爬虫
         download_photos(request_url, basename(request_url))
 
-    def_log("爬虫完成请请前往" + PATH + "查看")
+    def_log(request_url + " 爬虫完成请请前往 " + PATH + " 查看 ")
     time.sleep(100)
