@@ -27,7 +27,7 @@ def download_photos(page_url, name):
         response = urllib.request.urlopen(request)
         content = response.read().decode('utf-8')
     except Exception as e:
-        print("Exception:request ", e)
+        log(file_path, "Exception:request " + str(e))
         return
 
     # 很多图片会重复，用set变成去重
@@ -46,14 +46,15 @@ def download_photos(page_url, name):
         try:
             img_data = urllib.request.urlopen(img_url).read()
             base_name = basename(urlsplit(img_url)[2])
-            img_path = file_path + "\\" + base_name
-            output = open(img_path, 'wb')
-            output.write(img_data)
         except Exception as e:
-            print("download_photos:", e)
-        finally:
-            output.close()
-            log(file_path, img_path)
+            log(file_path, "Exception:for request " + str(e))
+            continue
+
+        img_path = file_path + "\\" + base_name
+        with open(img_path, 'wb') as output:
+            output.write(img_data)
+
+        log(file_path, img_path)
 
 
 def get_page(col_url):
@@ -77,16 +78,11 @@ def get_page(col_url):
 
 def log(file_path, text):
     log_path = file_path + "\log.txt"
-    try:
-        output = open(log_path, 'a', encoding='utf-8')
+    with open(log_path, 'a', encoding='utf-8') as output:
         output.write("\n\n")
         output.write(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()) + "\n")
         output.write(str(text))
         print(text)
-    except Exception as e:
-        print("LOG Exception:", e)
-    finally:
-        output.close()
 
 
 def def_log(text):
@@ -115,7 +111,6 @@ if __name__ == "__main__":
     request_url = ""
     request_url = str(input("请输入集合或者某个问题：")).strip()
     print(request_url)
-    request_url=spider_url
     # 新建目录 E:\image
     create_dir()
     if request_url is None or len(request_url) < len('https://www.zhihu.com/collection/'):
