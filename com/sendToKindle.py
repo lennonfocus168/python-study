@@ -1,3 +1,4 @@
+# 推送kindle 要加入邮件信息，可用
 import os
 import smtplib
 from email import encoders
@@ -13,7 +14,8 @@ def _format_addr(s):
     name, addr = parseaddr(s)
     return formataddr((Header(name, 'utf-8').encode(), addr))
 
-#qq邮箱好像不行 要用163
+
+# qq邮箱好像不行 要用163
 from_addr = ''  # 发件人地址
 to_addr = ''  # 收件人地址
 smtp_server = 'smtp.163.com'  # 邮件服务器
@@ -59,4 +61,3 @@ except Exception as e:
     print("无法建立连接，可能是网络等异常", e)
 finally:
     server.quit()
-

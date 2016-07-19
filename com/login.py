@@ -1,4 +1,5 @@
 # coding=utf-8
+#模拟登入acm fzu但是一直失败 呜呜
 import gzip
 import http.cookiejar
 import urllib

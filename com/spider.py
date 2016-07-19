@@ -1,4 +1,5 @@
 # coding=utf-8
+# 知乎爬虫专用
 import os
 import re
 import urllib
@@ -7,7 +8,6 @@ import urllib.request
 from os.path import basename
 from urllib.parse import urlsplit
 
-# 知乎爬虫
 import time
 
 spider_url = r'https://www.zhihu.com/question/37709992'
@@ -38,7 +38,7 @@ def download_photos(page_url, name):
         if str(i).endswith('_b.jpg'):
             img_url_list.add(i)
 
-    # file_path有可能会变,name是特别的字符时候，无法穿件目录，用数字来
+    # file_path有可能会变,name是特别的字符时候，无法创建目录，用数字来代替目录
     file_path = create_dirs(file_path, page_url)
     def_log(page_url + "    site:" + str(len(img_url_list)))
 
