@@ -1,12 +1,17 @@
-import json
+temp = [0, 0, 1]
 
-import time
+n = 100000  # 实验进行次数
+size = 2  # 步长
+result = 0  # 原来结果
+rev = 0  # 换后结果
+k = 1
+data = [1, 0, 0]
+for j in range(0, 3):
+    print(j)
+    # if j == k:
+    #     continue
+    #
+    # if data[j] == 0:
+    #     break
 
-data = {"name": "zeg104935408632"}
-
-str = "%a, %d %b %Y %H:%M:%S GMT"
-print(time.strftime(str, time.localtime(time.time())))
-print(time.strftime(str, time.localtime(time.time() - 365 * 24 * 60 * 60)))
-print(time.strftime(str, time.gmtime(time.time())))
-
-'Fri, 22 Jul 2016 08:31:29 GMT'
+print(j, k, data)
