@@ -1,17 +1,21 @@
-temp = [0, 0, 1]
+# coding=utf-8
+import re
 
-n = 100000  # 实验进行次数
-size = 2  # 步长
-result = 0  # 原来结果
-rev = 0  # 换后结果
-k = 1
-data = [1, 0, 0]
-for j in range(0, 3):
-    print(j)
-    # if j == k:
-    #     continue
-    #
-    # if data[j] == 0:
-    #     break
+# spider_url = r'https://www.zhihu.com/question/37006507'
 
-print(j, k, data)
+spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
+collection_url = r'https://www.zhihu.com/collection/62864589'
+# collection_url = r'https://www.zhihu.com/collection/101134785'  # 自己
+URL_PRE = "https://www.zhihu.com"
+
+re_str = '<center>(.*?)</center>'
+col_re_str = '<a target="_blank" href="(.*?)">(.*?)</a>'
+
+col_list = []
+page = 1
+read = open("E:\\1.html", "r", encoding='utf-8')
+content = read.read()
+url_list = set(re.findall(re_str, content, re.M | re.I))
+
+print(url_list)
+print(len(url_list))

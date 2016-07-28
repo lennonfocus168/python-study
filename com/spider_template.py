@@ -2,8 +2,9 @@ import gzip
 import io
 import urllib.request
 
-url = "http://www.ip138.com/"
+import re
 
+url = "http://www.baidu.com/s?ie=UTF-8&wd=ip"
 
 def zip_to_encode_html(request, encoding='utf-8'):
     response = urllib.request.urlopen(request)
@@ -17,10 +18,10 @@ def zip_to_encode_html(request, encoding='utf-8'):
 
 
 request = urllib.request.Request(url)
-content = zip_to_encode_html(request, "gb2312")
+content = zip_to_encode_html(request)
 
-re_str = 'src="(http[s]?://.*?)"'
-print(content)
+re_str = '<span class="c-gap-right">本机IP:&nbsp;(.*?)</span>'
+print(re.findall(re_str, content, re.M | re.I))
 
 with open(r"E:\1.html", "w", encoding='utF-8') as output:
     output.write(content)
