@@ -1,14 +1,11 @@
 # coding=utf-8
-import urllib
-import urllib.request
-import urllib.request
 import json
-
-from urllib.parse import urlsplit
-
 import time
 
+
 # spider_url = r'http://bbs.fengniao.com/forum/8982080.html'
+import urllib.request
+
 str = "%a, %d %b %Y %H:%M:%S GMT"
 Date = time.strftime(str, time.gmtime(time.time()))
 expires = time.strftime(str, time.gmtime(time.time() - 365 * 24 * 60 * 60))
