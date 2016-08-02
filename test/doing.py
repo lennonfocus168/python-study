@@ -1,11 +1,13 @@
+import json
 import re
 import urllib.request
 
-url = "http://www.baidu.com/s?ie=UTF-8&wd=ip"
+url = "https://api.douban.com/v2/book/1220565"
 
 request = urllib.request.Request(url)
 response = urllib.request.urlopen(request)
 content = response.read().decode('utf-8')
 
-re_str = '<span class="c-gap-right">本机IP:&nbsp;(.*?)</span>'
-print(re.findall(re_str, content, re.M | re.I))
+print(content)
+
+print(json.loads(content))
