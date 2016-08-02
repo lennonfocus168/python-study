@@ -11,4 +11,4 @@
  3. sendTokindle 推送到自己kindle,可以直接使用
  4. login   模拟登入acm fzu但是一直失败
  5. spider_template 爬虫的简单模版
- 6. zhihu** 都是下载图片，发送消息之类
+ 6. zhihu** 都是下载图片，发送消息之类的简单代码
